@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>New Event</title>
+</head>
+<body>
+  <h2>Create New Event</h2>
+  <% if (errors.length) { %>
+    <div style="color:red;">
+      <ul>
+        <% errors.forEach(function(e){ %>
+          <li><%= e.msg %></li>
+        <% }) %>
+      </ul>
+    </div>
+  <% } %>
+  <form method="post" action="/events/new">
+    <label>Title: <input type="text" name="title" value="<%= old.title || '' %>"></label><br>
+    <label>Description: <textarea name="description"><%= old.description || '' %></textarea></label><br>
+    <label>Venue:
+      <select name="venue_id">
+        <% venues.forEach(function(v){ %>
+          <option value="<%= v.venue_id %>"><%= v.name %></option>
+        <% }) %>
+      </select>
+    </label><br>
+    <label>Start (YYYY-MM-DDTHH:MM:SS): <input type="text" name="start_datetime" value="<%= old.start_datetime || '' %>"></label><br>
+    <label>End (YYYY-MM-DDTHH:MM:SS): <input type="text" name="end_datetime" value="<%= old.end_datetime || '' %>"></label><br>
+    <label>Status:
+      <select name="status">
+        <option value="DRAFT">DRAFT</option>
+        <option value="PUBLISHED">PUBLISHED</option>
+        <option value="CANCELLED">CANCELLED</option>
+      </select>
+    </label><br>
+    <label>Created By:
+      <select name="created_by">
+        <option value="">(none)</option>
+        <% users.forEach(function(u){ %>
+          <option value="<%= u.user_id %>"><%= u.name %></option>
+        <% }) %>
+      </select>
+    </label><br>
+    <button type="submit">Create Event</button>
+  </form>
+  <p><a href="/">Back</a></p>
+</body>
+</html>

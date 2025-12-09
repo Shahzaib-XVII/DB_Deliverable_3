@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>New Reservation</title>
+</head>
+<body>
+  <h2>Create Reservation (Hold)</h2>
+  <% if (errors.length) { %>
+    <div style="color:red;">
+      <ul>
+        <% errors.forEach(function(e){ %>
+          <li><%= e.msg %></li>
+        <% }) %>
+      </ul>
+    </div>
+  <% } %>
+  <form method="post" action="/reservations/new">
+    <label>User:
+      <select name="user_id">
+        <option value="">(guest)</option>
+        <% users.forEach(function(u){ %>
+          <option value="<%= u.user_id %>"><%= u.name %></option>
+        <% }) %>
+      </select>
+    </label><br>
+    <label>Event:
+      <select name="event_id">
+        <% events.forEach(function(e){ %>
+          <option value="<%= e.event_id %>"><%= e.title %></option>
+        <% }) %>
+      </select>
+    </label><br>
+    <label>Seat:
+      <select name="seat_id">
+        <% seats.forEach(function(s){ %>
+          <option value="<%= s.seat_id %>">Seat <%= s.seat_id %> (Section <%= s.section_id %> <%= s.row_label %>-<%= s.seat_number %>)</option>
+        <% }) %>
+      </select>
+    </label><br>
+    <label>Hold expires at (YYYY-MM-DDTHH:MM:SS): <input type="text" name="hold_expires_at" value="<%= old.hold_expires_at || '' %>"></label><br>
+    <button type="submit">Create Hold</button>
+  </form>
+  <p><a href="/">Back</a></p>
+</body>
+</html>
