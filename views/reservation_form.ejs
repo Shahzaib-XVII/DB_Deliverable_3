@@ -5,7 +5,7 @@
   <title>New Reservation</title>
 </head>
 <body>
-  <h2>Create Reservation (Hold)</h2>
+  <h2><%= mode === 'edit' ? 'Edit Reservation' : 'Create Reservation (Hold)' %></h2>
   <% if (errors.length) { %>
     <div style="color:red;">
       <ul>
@@ -15,32 +15,39 @@
       </ul>
     </div>
   <% } %>
-  <form method="post" action="/reservations/new">
+  <form method="post" action="<%= formAction %>">
     <label>User:
       <select name="user_id">
         <option value="">(guest)</option>
         <% users.forEach(function(u){ %>
-          <option value="<%= u.user_id %>"><%= u.name %></option>
+          <option value="<%= u.user_id %>" <%= Number(old.user_id) === u.user_id ? 'selected' : '' %>><%= u.name %></option>
         <% }) %>
       </select>
     </label><br>
     <label>Event:
       <select name="event_id">
         <% events.forEach(function(e){ %>
-          <option value="<%= e.event_id %>"><%= e.title %></option>
+          <option value="<%= e.event_id %>" <%= Number(old.event_id) === e.event_id ? 'selected' : '' %>><%= e.title %></option>
         <% }) %>
       </select>
     </label><br>
     <label>Seat:
       <select name="seat_id">
         <% seats.forEach(function(s){ %>
-          <option value="<%= s.seat_id %>">Seat <%= s.seat_id %> (Section <%= s.section_id %> <%= s.row_label %>-<%= s.seat_number %>)</option>
+          <option value="<%= s.seat_id %>" <%= Number(old.seat_id) === s.seat_id ? 'selected' : '' %>>Seat <%= s.seat_id %> (Section <%= s.section_id %> <%= s.row_label %>-<%= s.seat_number %>)</option>
         <% }) %>
       </select>
     </label><br>
-    <label>Hold expires at (YYYY-MM-DDTHH:MM:SS): <input type="text" name="hold_expires_at" value="<%= old.hold_expires_at || '' %>"></label><br>
-    <button type="submit">Create Hold</button>
+    <label>Hold expires at: <input type="datetime-local" name="hold_expires_at" value="<%= old.hold_expires_at || '' %>"></label><br>
+    <label>Status:
+      <select name="status">
+        <% statuses.forEach(function(s){ %>
+          <option value="<%= s %>" <%= (old.status || 'HELD') === s ? 'selected' : '' %>><%= s %></option>
+        <% }) %>
+      </select>
+    </label><br>
+    <button type="submit"><%= submitLabel %></button>
   </form>
-  <p><a href="/">Back</a></p>
+  <p><a href="/">Back</a> | <a href="/reservations">View Reservations</a></p>
 </body>
 </html>

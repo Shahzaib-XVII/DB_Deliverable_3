@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Reservation Detail</title>
+</head>
+<body>
+  <h2>Reservation Detail</h2>
+  <p><a href="/reservations">Back to list</a> | <a href="/reservations/<%= reservation.hold_id %>/edit">Edit</a></p>
+  <ul>
+    <li><strong>ID:</strong> <%= reservation.hold_id %></li>
+    <li><strong>User:</strong> <%= reservation.user_name || 'Guest' %></li>
+    <li><strong>Event:</strong> <%= reservation.event_title %></li>
+    <li><strong>Seat:</strong> Section <%= reservation.section_id %> <%= reservation.row_label %>-<%= reservation.seat_number %></li>
+    <li><strong>Status:</strong> <%= reservation.status %></li>
+    <li><strong>Hold Expires:</strong> <%= reservation.hold_expires_at %></li>
+    <li><strong>Created At:</strong> <%= reservation.created_at %></li>
+  </ul>
+</body>
+</html>

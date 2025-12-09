@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-  res.send('<h2>D2 Insertion Prototype</h2><ul><li><a href="/users/new">New User</a></li><li><a href="/events/new">New Event</a></li><li><a href="/reservations/new">New Reservation</a></li></ul>');
+  res.render('home');
 });
 
 app.use('/users', usersRouter);

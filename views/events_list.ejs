@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Events</title>
+</head>
+<body>
+  <h2>Events</h2>
+  <p><a href="/">Home</a> | <a href="/events/new">Add Event</a></p>
+  <table border="1" cellpadding="6" cellspacing="0">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Venue</th>
+        <th>Status</th>
+        <th>Start</th>
+        <th>End</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% events.forEach(function(e){ %>
+        <tr>
+          <td><%= e.event_id %></td>
+          <td><%= e.title %></td>
+          <td><%= e.venue_name %></td>
+          <td><%= e.status %></td>
+          <td><%= e.start_datetime %></td>
+          <td><%= e.end_datetime %></td>
+          <td>
+            <a href="/events/<%= e.event_id %>">View</a> |
+            <a href="/events/<%= e.event_id %>/edit">Edit</a> |
+            <form method="post" action="/events/<%= e.event_id %>/delete" style="display:inline">
+              <button type="submit" aria-label="Delete event <%= e.event_id %>">Delete</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</body>
+</html>

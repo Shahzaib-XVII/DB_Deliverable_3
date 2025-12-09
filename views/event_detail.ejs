@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Event Detail</title>
+</head>
+<body>
+  <h2>Event Detail</h2>
+  <p><a href="/events">Back to list</a> | <a href="/events/<%= event.event_id %>/edit">Edit</a></p>
+  <ul>
+    <li><strong>ID:</strong> <%= event.event_id %></li>
+    <li><strong>Title:</strong> <%= event.title %></li>
+    <li><strong>Description:</strong> <%= event.description || '-' %></li>
+    <li><strong>Venue:</strong> <%= event.venue_name %></li>
+    <li><strong>Status:</strong> <%= event.status %></li>
+    <li><strong>Start:</strong> <%= event.start_datetime %></li>
+    <li><strong>End:</strong> <%= event.end_datetime %></li>
+    <li><strong>Created By:</strong> <%= event.created_by_name || 'N/A' %></li>
+    <li><strong>Created At:</strong> <%= event.created_at %></li>
+  </ul>
+</body>
+</html>

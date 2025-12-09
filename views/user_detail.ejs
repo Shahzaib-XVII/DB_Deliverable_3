@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>User Detail</title>
+</head>
+<body>
+  <h2>User Detail</h2>
+  <p><a href="/users">Back to list</a> | <a href="/users/<%= user.user_id %>/edit">Edit</a></p>
+  <ul>
+    <li><strong>ID:</strong> <%= user.user_id %></li>
+    <li><strong>Name:</strong> <%= user.name %></li>
+    <li><strong>Email:</strong> <%= user.email %></li>
+    <li><strong>Phone:</strong> <%= user.phone || '-' %></li>
+    <li><strong>Role:</strong> <%= user.role_name %></li>
+    <li><strong>Created At:</strong> <%= user.created_at %></li>
+  </ul>
+</body>
+</html>

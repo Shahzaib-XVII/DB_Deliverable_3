@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Reservations</title>
+</head>
+<body>
+  <h2>Reservations</h2>
+  <p><a href="/">Home</a> | <a href="/reservations/new">Add Reservation</a></p>
+  <table border="1" cellpadding="6" cellspacing="0">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>User</th>
+        <th>Event</th>
+        <th>Seat</th>
+        <th>Status</th>
+        <th>Hold Expires At</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% reservations.forEach(function(r){ %>
+        <tr>
+          <td><%= r.hold_id %></td>
+          <td><%= r.user_name || 'Guest' %></td>
+          <td><%= r.event_title %></td>
+          <td>Section <%= r.section_id %> <%= r.row_label %>-<%= r.seat_number %></td>
+          <td><%= r.status %></td>
+          <td><%= r.hold_expires_at %></td>
+          <td>
+            <a href="/reservations/<%= r.hold_id %>">View</a> |
+            <a href="/reservations/<%= r.hold_id %>/edit">Edit</a> |
+            <form method="post" action="/reservations/<%= r.hold_id %>/delete" style="display:inline">
+              <button type="submit" aria-label="Delete reservation <%= r.hold_id %>">Delete</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</body>
+</html>
