@@ -5,7 +5,7 @@
   <title>New User</title>
 </head>
 <body>
-  <h2>Create New User</h2>
+  <h2><%= mode === 'edit' ? 'Edit User' : 'Create New User' %></h2>
   <% if (errors.length) { %>
     <div style="color:red;">
       <ul>
@@ -15,14 +15,23 @@
       </ul>
     </div>
   <% } %>
-  <form method="post" action="/users/new">
+  <form method="post" action="<%= formAction %>">
     <label>Name: <input type="text" name="name" value="<%= old.name || '' %>"></label><br>
     <label>Email: <input type="email" name="email" value="<%= old.email || '' %>"></label><br>
     <label>Phone: <input type="text" name="phone" value="<%= old.phone || '' %>"></label><br>
-    <label>Password (plaintext for demo): <input type="text" name="hashed_password" value="<%= old.hashed_password || '' %>"></label><br>
-    <label>Role ID: <input type="number" name="role_id" value="<%= old.role_id || 4 %>"></label><br>
-    <button type="submit">Create</button>
+    <label>Password:
+      <input id="password" type="password" name="password" autocomplete="<%= mode === 'edit' ? 'off' : 'new-password' %>" <%= mode === 'edit' ? '' : 'required' %> aria-describedby="passwordHelp">
+    </label><br>
+    <small id="passwordHelp">Password must be at least 8 characters. Leave blank when editing to keep the existing password.</small><br>
+    <label>Role:
+      <select name="role_id">
+        <% roles.forEach(function(r){ %>
+          <option value="<%= r.role_id %>" <%= Number(old.role_id || 4) === r.role_id ? 'selected' : '' %>><%= r.role_name %></option>
+        <% }) %>
+      </select>
+    </label><br>
+    <button type="submit"><%= submitLabel %></button>
   </form>
-  <p><a href="/">Back</a></p>
+  <p><a href="/">Back</a> | <a href="/users">View Users</a></p>
 </body>
 </html>
